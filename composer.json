@@ -22,8 +22,11 @@
 		"zendframework/zendframework": "2.*"
 	},
 	"autoload": {
-		"psr-4": {
-			"Armenio\\RestrictAccess\\": "src/"
-		}
+		"psr-0": {
+			"RestrictAccess": "src"
+		},
+		"classmap": [
+			"Module.php"
+		]
 	}
 }
