@@ -18,6 +18,9 @@
 			"email": "rafael.armenio@gmail.com"
 		}
 	],
+	"require": {
+		"zendframework/zendframework": "2.*"
+	},
 	"autoload": {
 		"psr-4": {
 			"Armenio\\RestrictAccess\\": "src/"
