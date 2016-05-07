@@ -1,0 +1,26 @@
+{
+	"name": "armenio/armenio-zf2-restrictaccess-module",
+	"description": "Restrict Access (Database|Ldap) library",
+	"type": "library",
+	"keywords": [
+		"restrictaccess",
+		"acl",
+		"ldap",
+		"helper",
+		"zf2",
+		"armenio"
+	],
+	"homepage": "https://github.com/armenio/armenio-zf2-restrictaccess-module",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rafael Armênio",
+			"email": "rafael.armenio@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Armenio\\RestrictAccess\\": "src/"
+		}
+	}
+}
