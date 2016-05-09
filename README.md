@@ -44,20 +44,22 @@ The Restrict Access Module for Zend Framework 2
     ),
 ```
 
+6. Usage inside Controllers
+
 6.1 Use with Zend\Db
 
 ```php
 $username = $data['username'];
 $password = $data['password'];
 
-$authenticationService = $this->getServiceLocator()->get('AuthenticationService');
+$authService = $this->getServiceLocator()->get('AuthenticationService');
 
-$authenticationService->setNamespace('Default');
-$authenticationService->setTableName('users');
-$authenticationService->setIdentityColumn('username');
-$authenticationService->setCredentialColumn('password');
+$authService->setNamespace('Default');
+$authService->setTableName('users');
+$authService->setIdentityColumn('username');
+$authService->setCredentialColumn('password');
 
-$authenticationResult = $authenticationService->authenticate($username, $password);
+$authenticationResult = $authService->authenticate($username, $password);
 
 if( ! $authenticationResult->isValid() ){
 	var_dump($authenticationResult->getMessages());
@@ -82,14 +84,22 @@ $ldapOptions = array(
 	),
 );
 
-$ldapService = $this->getServiceLocator()->get('AuthenticationService');
+$authService = $this->getServiceLocator()->get('AuthenticationService');
 
-$ldapService->setNamespace('Default');
-$ldapService->setOptions($ldapOptions);
+$authService->setNamespace('Default');
+$authService->setOptions($ldapOptions);
 
-$authenticationResult = $ldapService->authenticate($username, $password);
+$authenticationResult = $authService->authenticate($username, $password);
 
 if( ! $authenticationResult->isValid() ){
 	var_dump($authenticationResult->getMessages());
+}
+```
+
+7. Getting user identity
+
+```php
+if( $this->authService->hasIdentity() ){
+	var_dump($this->authService->getIdentity());
 }
 ```
