@@ -64,7 +64,7 @@ The Restrict Access Module for Zend Framework 2
 	if( ! $authenticationResult->isValid() ){
 		var_dump($authenticationResult->getMessages());
 	}
-	// else $authService->getIdentity();
+	// else var_dump($authService->getIdentity());
 	```
 
 	6.2 Use with Zend\Ldap
@@ -95,7 +95,7 @@ The Restrict Access Module for Zend Framework 2
 	if( ! $authenticationResult->isValid() ){
 		var_dump($authenticationResult->getMessages());
 	}
-	// else $authService->getIdentity();
+	// else var_dump($authService->getIdentity());
 	```
 
 7. Getting user identity
