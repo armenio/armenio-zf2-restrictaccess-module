@@ -10,96 +10,96 @@ The Restrict Access Module for Zend Framework 2
 
 3. Edit composer.json :
 
-```json
-{
-	"require": {
-		"armenio/armenio-zf2-restrictaccess-module": "1.*"
+	```json
+	{
+		"require": {
+			"armenio/armenio-zf2-restrictaccess-module": "1.*"
+		}
 	}
-}
-```
+	```
 
 4. Edit config/application.config.php :
 
-```php
-'modules' => array(
-	 'Application',
-	 'RestrictAccess', //<==============================
-)
-```
+	```php
+	'modules' => array(
+		 'Application',
+		 'RestrictAccess', //<==============================
+	)
+	```
 
 5. Edit module/config/module.config.php
 
-```php
-	'service_manager' => array(
-        'factories' => array(
-            'AuthenticationService' => function(\Zend\ServiceManager\ServiceManager $serviceManager) {
-                $service = new \RestrictAccess\Service\Authentication\DbTableService();
-                // $service = new \RestrictAccess\Service\Authentication\LdapService();
-                
-                $service->setServiceManager($serviceManager);
+	```php
+		'service_manager' => array(
+	        'factories' => array(
+	            'AuthenticationService' => function(\Zend\ServiceManager\ServiceManager $serviceManager) {
+	                $service = new \RestrictAccess\Service\Authentication\DbTableService();
+	                // $service = new \RestrictAccess\Service\Authentication\LdapService();
+	                
+	                $service->setServiceManager($serviceManager);
 
-                return $service;
-            }
-        ),
-    ),
-```
+	                return $service;
+	            }
+	        ),
+	    ),
+	```
 
 6. Usage inside Controllers
 
-6.1 Use with Zend\Db
+	6.1 Use with Zend\Db
 
-```php
-$username = $data['username'];
-$password = $data['password'];
+	```php
+	$username = $data['username'];
+	$password = $data['password'];
 
-$authService = $this->getServiceLocator()->get('AuthenticationService');
+	$authService = $this->getServiceLocator()->get('AuthenticationService');
 
-$authService->setNamespace('Default');
-$authService->setTableName('users');
-$authService->setIdentityColumn('username');
-$authService->setCredentialColumn('password');
+	$authService->setNamespace('Default');
+	$authService->setTableName('users');
+	$authService->setIdentityColumn('username');
+	$authService->setCredentialColumn('password');
 
-$authenticationResult = $authService->authenticate($username, $password);
+	$authenticationResult = $authService->authenticate($username, $password);
 
-if( ! $authenticationResult->isValid() ){
-	var_dump($authenticationResult->getMessages());
-}
-```
+	if( ! $authenticationResult->isValid() ){
+		var_dump($authenticationResult->getMessages());
+	}
+	```
 
-6.1 Use with Zend\Ldap
+	6.2 Use with Zend\Ldap
 
-```php
-$username = $post['username'];
-$password = $post['password'];
+	```php
+	$username = $post['username'];
+	$password = $post['password'];
 
-$ldapOptions = array(
-	'server1' => array(
-		'host' => 'dc1.w.net',
-		'useStartTls' => 'false',
-		'useSsl' => 'false',
-		'baseDn' => 'CN=Users,DC=w,DC=net',
-		'accountCanonicalForm' => 3,
-		'accountDomainName' => 'w.net',
-		'accountDomainNameShort' => 'W',
-	),
-);
+	$ldapOptions = array(
+		'server1' => array(
+			'host' => 'dc1.w.net',
+			'useStartTls' => 'false',
+			'useSsl' => 'false',
+			'baseDn' => 'CN=Users,DC=w,DC=net',
+			'accountCanonicalForm' => 3,
+			'accountDomainName' => 'w.net',
+			'accountDomainNameShort' => 'W',
+		),
+	);
 
-$authService = $this->getServiceLocator()->get('AuthenticationService');
+	$authService = $this->getServiceLocator()->get('AuthenticationService');
 
-$authService->setNamespace('Default');
-$authService->setOptions($ldapOptions);
+	$authService->setNamespace('Default');
+	$authService->setOptions($ldapOptions);
 
-$authenticationResult = $authService->authenticate($username, $password);
+	$authenticationResult = $authService->authenticate($username, $password);
 
-if( ! $authenticationResult->isValid() ){
-	var_dump($authenticationResult->getMessages());
-}
-```
+	if( ! $authenticationResult->isValid() ){
+		var_dump($authenticationResult->getMessages());
+	}
+	```
 
 7. Getting user identity
 
-```php
-if( $this->authService->hasIdentity() ){
-	var_dump($this->authService->getIdentity());
-}
-```
+	```php
+	if( $this->authService->hasIdentity() ){
+		var_dump($this->authService->getIdentity());
+	}
+	```
