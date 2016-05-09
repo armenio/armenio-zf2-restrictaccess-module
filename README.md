@@ -52,7 +52,8 @@ $password = $data['password'];
 
 $authenticationService = $this->getServiceLocator()->get('AuthenticationService');
 
-$authenticationService->setTableName('Default');
+$authenticationService->setNamespace('Default');
+$authenticationService->setTableName('users');
 $authenticationService->setIdentityColumn('username');
 $authenticationService->setCredentialColumn('password');
 
