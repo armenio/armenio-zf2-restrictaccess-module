@@ -7,7 +7,6 @@
  
 namespace RestrictAccess\Acl;
 
-use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -22,21 +21,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class AclServiceFactory implements FactoryInterface
 {
     /**
-     * Create a Acl instance.
-     *
-     * @param ContainerInterface $container
-     * @param string $requestedName
-     * @param null|array $options
-     * @return Acl
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-    {
-        // Instantiate
-        $acl = new Acl();
-        return $acl;
-    }
-
-    /**
      * zend-servicemanager v2 factory for creating Acl instance.
      *
      * Proxies to `__invoke()`.
@@ -46,6 +30,7 @@ class AclServiceFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, Acl::class);
+        $acl = new Acl();
+        return $acl;
     }
 }
