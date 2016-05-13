@@ -31,7 +31,7 @@ class DbTableServiceFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $dbTable = new DbTable();
-        $zendDb = $container->get('Zend\Db\Adapter');
+        $zendDb = $serviceLocator->get('Zend\Db\Adapter');
         $dbTable->setZendDb($zendDb);
         return $dbTable;
     }
