@@ -23,8 +23,6 @@ class DbTableServiceFactory implements FactoryInterface
     /**
      * zend-servicemanager v2 factory for creating DbTable instance.
      *
-     * Proxies to `__invoke()`.
-     *
      * @param ServiceLocatorInterface $serviceLocator
      * @returns DbTable
      */

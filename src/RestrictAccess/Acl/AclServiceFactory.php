@@ -23,8 +23,6 @@ class AclServiceFactory implements FactoryInterface
     /**
      * zend-servicemanager v2 factory for creating Acl instance.
      *
-     * Proxies to `__invoke()`.
-     *
      * @param ServiceLocatorInterface $serviceLocator
      * @returns Acl
      */

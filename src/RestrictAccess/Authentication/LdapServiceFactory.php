@@ -23,8 +23,6 @@ class LdapServiceFactory implements FactoryInterface
     /**
      * zend-servicemanager v2 factory for creating Ldap instance.
      *
-     * Proxies to `__invoke()`.
-     *
      * @param ServiceLocatorInterface $serviceLocator
      * @returns Ldap
      */
