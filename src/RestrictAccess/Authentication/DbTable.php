@@ -7,6 +7,8 @@
  
 namespace RestrictAccess\Authentication;
 
+use Zend\Db\Adapter\AdapterInterface;
+
 use RestrictAccess\Authentication\AbstractAuthentication;
 use RestrictAccess\Authentication\AuthenticationInterface;
 
@@ -86,7 +88,7 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
      */
     protected $cryptCost = 14;
 
-    public function setZendDb(\Zend\Db\Adapter\Adapter $zendDb)
+    public function setZendDb(AdapterInterface $zendDb)
     {
         $this->zendDb = $zendDb;
         return $this;
@@ -94,11 +96,6 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
 
     public function getZendDb()
     {
-        if( $this->zendDb === null ){
-            // $zendDb = $this->getServiceManager()->get('Zend\Db\Adapter');
-
-            // $this->setZendDb($zendDb);
-        }
 
         return $this->zendDb;
     }
