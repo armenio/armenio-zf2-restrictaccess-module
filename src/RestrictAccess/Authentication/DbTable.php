@@ -97,6 +97,10 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
     public function getZendDb()
     {
 
+        if( $this->zendDb === null ){
+            $this->setZendDb($this->getServiceLocator()->get('Zend\Db\Adapter'));
+        }
+
         return $this->zendDb;
     }
 

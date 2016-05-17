@@ -7,16 +7,18 @@
 
 namespace RestrictAccess\Authentication;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 use Zend\Stdlib\Exception\RuntimeException;
 
 use Zend\Authentication\AuthenticationService as AuthenticationService;
 use Zend\Authentication\Storage\Session as AuthenticationStorageSession;
 
-abstract class AbstractAuthentication
+abstract class AbstractAuthentication implements ServiceLocatorAwareInterface
 {
+    protected $serviceLocator;
+    
     /**
      * @var string
      */
@@ -36,6 +38,16 @@ abstract class AbstractAuthentication
      * @var Zend\Authentication\AuthenticationService
      */
     protected $authenticationService;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     /**
      * Set namespace

@@ -7,8 +7,8 @@
 
 namespace RestrictAccess\Acl;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 use Zend\Permissions\Acl\Acl as ZendAcl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
@@ -17,8 +17,10 @@ use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 use Zend\Stdlib\Exception\RuntimeException;
 
-class Acl
+class Acl implements ServiceLocatorAwareInterface
 {
+    protected $serviceLocator;
+    
     /**
      * $roleResourcePrivileges - Acl data
      *
@@ -30,6 +32,16 @@ class Acl
      * @var Zend\Permissions\Acl\Acl
      */
     protected $aclService;
+
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+        $this->serviceLocator = $serviceLocator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     /**
      * Set Role Resource Privileges
