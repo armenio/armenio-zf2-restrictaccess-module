@@ -8,24 +8,5 @@
  */
 
 return array(
-    /*
-    'service_manager' => array(
-        'factories' => array(
-            'AuthenticationService' => function(\Zend\ServiceManager\ServiceManager $serviceManager) {
-                $service = new \RestrictAccess\Service\AuthenticationService();
-                
-                $service->setServiceManager($serviceManager);
-
-                return $service;
-            },
-            'AclService' => function(\Zend\ServiceManager\ServiceManager $serviceManager) {
-                $service = new \RestrictAccess\Service\AclService();
-                
-                $service->setServiceManager($serviceManager);
-
-                return $service;
-            },
-        ),
-    ),
-    */
+    // 
 );
