@@ -5,7 +5,7 @@
  * @link http://github.com/armenio for the source repository
  */
 
-namespace RestrictAccess\Authentication;
+namespace Armenio\RestrictAccess\Authentication;
 
 interface AuthenticationInterface
 {

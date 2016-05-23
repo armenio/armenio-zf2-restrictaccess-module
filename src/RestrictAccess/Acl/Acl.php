@@ -5,7 +5,7 @@
  * @link http://github.com/armenio for the source repository
  */
 
-namespace RestrictAccess\Acl;
+namespace Armenio\RestrictAccess\Acl;
 
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

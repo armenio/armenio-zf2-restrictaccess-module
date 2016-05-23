@@ -5,10 +5,10 @@
  * @link http://github.com/armenio for the source repository
  */
  
-namespace RestrictAccess\Authentication;
+namespace Armenio\RestrictAccess\Authentication;
 
-use RestrictAccess\Authentication\AbstractAuthentication;
-use RestrictAccess\Authentication\AuthenticationInterface;
+use Armenio\RestrictAccess\Authentication\AbstractAuthentication;
+use Armenio\RestrictAccess\Authentication\AuthenticationInterface;
 
 use Zend\Stdlib\Exception\InvalidArgumentException;
 use Zend\Stdlib\Exception\RuntimeException;
