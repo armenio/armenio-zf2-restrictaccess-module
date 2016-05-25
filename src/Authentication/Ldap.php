@@ -63,15 +63,13 @@ class Ldap extends AbstractAuthentication implements AuthenticationInterface
     }
 
     /**
-     * Set Authentication Adapter
+     * Prepare Authentication Adapter
      *
      * @return Ldap Provides a fluent interface
      */
-    public function setAuthenticationAdapter()
+    public function prepareAdapter()
     {
-        $authenticationAdapter = new AuthenticationAdapterLdap($this->getOptions());
-
-        $this->authenticationAdapter = $authenticationAdapter;
+        $this->setAdapter(new AuthenticationAdapterLdap($this->getOptions()));
         return $this;
     }
 
@@ -82,9 +80,6 @@ class Ldap extends AbstractAuthentication implements AuthenticationInterface
      */
     public function persist()
     {
-        $authenticationService = $this->getAuthenticationService();
-        $authenticationAdapter = $authenticationService->getAdapter();
-        $authenticationStorage = $authenticationService->getStorage();
-        $authenticationStorage->write($authenticationAdapter->getAccountObject());
+        $this->getStorage()->write($this->getAdapter()->getAccountObject());
     }
 }

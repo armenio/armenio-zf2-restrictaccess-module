@@ -331,11 +331,11 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
     }
 
     /**
-     * Set Authentication Adapter
+     * Prepare Authentication Adapter
      *
      * @return DbTable Provides a fluent interface
      */
-    public function setAuthenticationAdapter()
+    public function prepareAdapter()
     {
         $authenticationAdapter = new AuthenticationAdapterDbTable($this->getZendDb(), $this->getTableName(), $this->getIdentityColumn(), $this->getCredentialColumn(), $this->getCredentialValidationCallback());
         
@@ -359,7 +359,7 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
             }
         }
 
-        $this->authenticationAdapter = $authenticationAdapter;
+        $this->setAdapter($authenticationAdapter);
         return $this;
     }
 
@@ -370,9 +370,6 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
      */
     public function persist()
     {
-        $authenticationService = $this->getAuthenticationService();
-        $authenticationAdapter = $authenticationService->getAdapter();
-        $authenticationStorage = $authenticationService->getStorage();
-        $authenticationStorage->write($authenticationAdapter->getResultRowObject(null, array('created', 'updated', 'deleted', 'status', 'password')));
+        $this->getStorage()->write($this->getAdapter()->getResultRowObject(null, array('created', 'updated', 'deleted', 'status', 'password')));
     }
 }

@@ -17,7 +17,7 @@ use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 use Zend\Stdlib\Exception\RuntimeException;
 
-class Acl implements ServiceLocatorAwareInterface
+class Acl extends ZendAcl implements ServiceLocatorAwareInterface
 {
     protected $serviceLocator;
     
@@ -31,7 +31,7 @@ class Acl implements ServiceLocatorAwareInterface
     /**
      * @var Zend\Permissions\Acl\Acl
      */
-    protected $aclService;
+    protected $this;
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -75,53 +75,24 @@ class Acl implements ServiceLocatorAwareInterface
     }
 
     /**
-     * Set Acl Service
-     *
-     * @return Acl Provides a fluent interface
-     */
-    public function setAclService()
-    {
-        $aclService = new ZendAcl();
-        
-        $this->aclService = $aclService;
-        return $this;
-    }
-
-    /**
-     * Get Acl Service
-     *
-     * @return Zend\Permissions\Acl\Acl
-     */
-    public function getAclService()
-    {
-        if( $this->aclService === null ){
-            $this->setAclService();
-        }
-
-        return $this->aclService;
-    }
-
-    /**
      * Add Role Resource Privileges - Build Acl
      *
      * @return void
      */
     public function addRoleResourcePrivileges()
-    { 
-        $aclService = $this->getAclService();
-
+    {
         foreach($this->roleResourcePrivileges as $roleName => $resources){
-            if (! $aclService->hasRole($roleName)) {
-                $aclService->addRole(new Role($roleName));
+            if (! $this->hasRole($roleName)) {
+                $this->addRole(new Role($roleName));
             }
             
             foreach($resources as $resourceName => $privileges){
-                if ( ! $aclService->hasResource($resourceName)) {
-                    $aclService->addResource(new Resource($resourceName));
+                if ( ! $this->hasResource($resourceName)) {
+                    $this->addResource(new Resource($resourceName));
                 }
 
                 foreach ($privileges as $privilegeName) {
-                    $aclService->allow($roleName, $resourceName, $privilegeName);
+                    $this->allow($roleName, $resourceName, $privilegeName);
                 }
             }
         }
@@ -137,16 +108,14 @@ class Acl implements ServiceLocatorAwareInterface
      */
     public function isAllowed($role = null, $resource = null, $privilege = null)
     {
-        $aclService = $this->getAclService();
-
-        if (! $aclService->hasRole($role)) {
+        if (! $this->hasRole($role)) {
             return false;
         }
 
-        if ( ! $aclService->hasResource($resource)) {
+        if ( ! $this->hasResource($resource)) {
             return false;
         }
 
-        return $aclService->isAllowed($role, $resource, $privilege);
+        return parent::isAllowed($role, $resource, $privilege);
     }
 }

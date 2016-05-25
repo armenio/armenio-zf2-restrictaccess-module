@@ -10,63 +10,28 @@ namespace Armenio\RestrictAccess\Authentication;
 interface AuthenticationInterface
 {
     /**
-     * Set namespace
+     * Set storage namespace
      *
      * @throws Exception\RuntimeException
-     * @param string $namespace
-     * @return AuthenticationInterface Provides a fluent interface
+     * @param string $storageNamespace
+     * @return AbstractAuthentication Provides a fluent interface
      */
-    public function setNamespace($namespace);
+    public function setStorageNamespace($storageNamespace);
 
     /**
-     * Get namespace
+     * Get storage namespace
      *
      * @throws Exception\RuntimeException
      * @return string
      */
-    public function getNamespace();
+    public function getStorageNamespace();
 
     /**
-     * Set Authentication Adapter
+     * Prepare Authentication Adapter
      *
      * @return AuthenticationInterface Provides a fluent interface
      */
-    public function setAuthenticationAdapter();
-
-    /**
-     * Get Authentication Adapter
-     *
-     * @return Zend\Authentication\Adapter\AdapterInterface
-     */
-    public function getAuthenticationAdapter();
-
-    /**
-     * Set Authentication Storage
-     *
-     * @return AuthenticationInterface Provides a fluent interface
-     */
-    public function setAuthenticationStorage();
-
-    /**
-     * Get Authentication Storage
-     *
-     * @return Zend\Authentication\Storage\StorageInterface
-     */
-    public function getAuthenticationStorage();
-
-    /**
-     * Set Authentication Service
-     *
-     * @return AuthenticationInterface Provides a fluent interface
-     */
-    public function setAuthenticationService();
-
-    /**
-     * Get Authentication Service
-     *
-     * @return Zend\Authentication\AuthenticationService
-     */
-    public function getAuthenticationService();
+    public function prepareAdapter();
 
     /**
      * Persist - Save identity data
@@ -76,16 +41,9 @@ interface AuthenticationInterface
     public function persist();
 
     /**
-     * Authenticate
+     * doAuthenticate
      *
      * @return Zend\Authentication\Result
      */
-    public function authenticate($identity, $credential);
-
-    /**
-     * Returns the identity from storage or null if no identity is available
-     *
-     * @return mixed|null
-     */
-    public function getIdentity();
+    public function doAuthenticate($identity, $credential);
 }
