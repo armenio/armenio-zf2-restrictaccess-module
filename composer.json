@@ -1,6 +1,6 @@
 {
 	"name": "armenio/armenio-zf2-restrictaccess-module",
-	"description": "Restrict Access (Database|Ldap) library",
+	"description": "Restrict Access (Database|Ldap) Module for Zend Framework 2",
 	"type": "library",
 	"keywords": [
 		"restrictaccess",
