@@ -13,7 +13,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\Stdlib\Exception\RuntimeException;
 
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\Session as AuthenticationStorageSession;
+use Armenio\RestrictAccess\Authentication\Storage\Session as AuthenticationStorageSession;
 
 abstract class AbstractAuthentication extends AuthenticationService implements ServiceLocatorAwareInterface
 {
@@ -66,6 +66,33 @@ abstract class AbstractAuthentication extends AuthenticationService implements S
             throw new RuntimeException('Empty Storage Namespace');
         }
         return $this->storageNamespace;
+    }
+    
+    /**
+     * Set the TTL (in seconds) for the session cookie expiry
+     *
+     * Can safely be called in the middle of a session.
+     *
+     * @param  null|int $ttl
+     * @return AbstractAuthentication Provides a fluent interface
+     */
+    public function rememberMe($ttl = null)
+    {
+        $this->getStorage()->getManager()->rememberMe($ttl);
+        return $this;
+    }
+    
+    /**
+     * Set a 0s TTL for the session cookie
+     *
+     * Can safely be called in the middle of a session.
+     *
+     * @return AbstractAuthentication Provides a fluent interface
+     */
+    public function forgetMe()
+    {
+        $this->getStorage()->getManager()->forgetMe();
+        return $this;
     }
 
     /**
