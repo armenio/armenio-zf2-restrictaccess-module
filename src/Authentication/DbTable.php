@@ -342,7 +342,7 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
         $dbSelect = $authenticationAdapter->getDbSelect();
 
         if( $this->getCheckStatusColumn() === true ){
-            $dbSelect->where(array(sprintf('%s.status', $this->getTableName()) => 1));
+            $dbSelect->where([sprintf('%s.status', $this->getTableName()) => 1]);
         }
 
         $joinTables = $this->getJoinTables();
@@ -353,7 +353,7 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
                     $dbSelect->join($joinTable['name'], $joinTable['on'], $joinTable['columns'], $joinTable['type']);
 
                     if( $this->getCheckStatusColumn() === true ){
-                        $dbSelect->where(array(sprintf('%s.status', $joinTable['name']) => 1));
+                        $dbSelect->where([sprintf('%s.status', $joinTable['name']) => 1]);
                     }
                 }
             }
@@ -370,6 +370,6 @@ class DbTable extends AbstractAuthentication implements AuthenticationInterface
      */
     public function persist()
     {
-        $this->getStorage()->write($this->getAdapter()->getResultRowObject(null, array('created', 'updated', 'deleted', 'status', 'password')));
+        $this->getStorage()->write($this->getAdapter()->getResultRowObject(null, ['created', 'updated', 'deleted', 'status', 'password']));
     }
 }
